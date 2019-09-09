@@ -65,7 +65,7 @@ router.put('/:id',(req, res)=>{
 });
 
 
-router.delete('/users/:id',(req, res)=>{
+router.delete('/:id',(req, res)=>{
     let check_user = _.find(users,["id", parseInt(req.params.id)]);
     let msg = req.params.id+" 아이디를 가진 유저가 존재하지 않습니다";
     if(check_user){
