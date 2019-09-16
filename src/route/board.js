@@ -89,9 +89,8 @@ board.put('/:id', async(req,res)=>{
 board.delete('/:id', async(req,res)=>{
     let msg;
    
-        
     try {
-        await User.destroy({    
+        await Board.destroy({    
             where:{
                 viewcount:req.params.id
             }
