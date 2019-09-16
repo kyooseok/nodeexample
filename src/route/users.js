@@ -1,30 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const _ = require('lodash');
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("node_example", "root", "903956", {host : "localhost", dialect:"mysql"});
+const models = require("../modules")
 
-const check_sequelize_auth = async () =>{
-    try {
-        await sequelize.authenticate();
-        console.log("연결성공");
-    } catch (error) {
-        console.log("연결실패", err);
-    }
-};
+const User = models.user;
 
-check_sequelize_auth();
+// const check_sequelize_auth = async () =>{
+//     try {
+//         await sequelize.authenticate();
+//         console.log("연결성공");
+//     } catch (error) {
+//         console.log("연결실패", err);
+//     }
+// };
 
-const User = sequelize.define("user",{
-    name:{
-        type: Sequelize.STRING,
-        allowNull:false
-    },
-    password:{
-        type: Sequelize.INTEGER,
-        allowNull:false
-    }
-});
+// check_sequelize_auth();
+
+// const User = sequelize.define("user",{
+//     name:{
+//         type: Sequelize.STRING,
+//         allowNull:false
+//     },
+//     password:{
+//         type: Sequelize.INTEGER,
+//         allowNull:false
+//     }
+// });
 
 User.sync({force : true}).then(()=>{
     return User.create({
@@ -34,12 +34,8 @@ User.sync({force : true}).then(()=>{
 });
 
 
-router.get('/address/:password', async(req, res) =>{
-    let result = await User.findAll({
-        where:{
-            password : req.params.password
-        }
-    });
+router.get('/', async(req, res) =>{
+    let result = await User.findAll();
     res.send(result);
 });
 
@@ -55,7 +51,7 @@ router.get('/:id',async(req, res)=>{
 });
 
 router.post('/',async(req, res)=>{
-   let result = false;
+   let result = true;
    try {
        await User.create({
            id:req.body.id, name: req.body.name, password : req.body.password
@@ -64,6 +60,7 @@ router.post('/',async(req, res)=>{
        console.log(error);
    }
    console.log(result);
+   res.send(result);
 });
 
 router.put('/:id',async(req, res)=>{
@@ -81,7 +78,7 @@ router.put('/:id',async(req, res)=>{
             name : req.body.name
         }, {
             where:{
-                password:req.params.id
+                id:req.params.id
             }
         });
         msg = '유저를 찾아서 '+req.body.name+' 으로 바뀌었습니다.';
@@ -104,7 +101,7 @@ router.delete('/:id',async(req, res)=>{
         try {
             await User.destroy({
                 where:{
-                    password:req.params.id
+                    id:req.params.id
                 }
             });
            mag = req.params.id+" 를 가진 유저를 삭제하였습니다."
