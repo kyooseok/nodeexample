@@ -33,15 +33,6 @@ User.sync({force : true}).then(()=>{
     });
 });
 
-let users=[{
-    id : 1,
-    name: '홍길동'
-},{
-    id : 2,
-    name : '장형수'
-}];
-
-
 
 router.get('/address/:password', async(req, res) =>{
     let result = await User.findAll({
