@@ -4,33 +4,6 @@ const models = require("../modules");
 
 const User = models.user;
 
-// const check_sequelize_auth = async () =>{
-//     try {
-//         await sequelize.authenticate();
-//         console.log("연결성공");
-//     } catch (error) {
-//         console.log("연결실패", err);
-//     }
-// };
-
-// check_sequelize_auth();
-
-// const User = sequelize.define("user",{
-//     name:{
-//         type: Sequelize.STRING,
-//         allowNull:false
-//     },
-//     password:{
-//         type: Sequelize.INTEGER,
-//         allowNull:false
-//     }
-// });
-
-User.sync({force : true}).then(()=>{
-    return User.create({
-        name : "홍길동"
-    });
-});
 
 
 router.get('/', async(req, res) =>{
@@ -53,8 +26,10 @@ router.post('/',async(req, res)=>{
    let result = true;
    try {
        await User.create({
-           id:req.body.id, name: req.body.name, password : req.body.password
+          name: req.body.name,
+          address:req.body.address
        });
+      await User.setBoards({name : "test"});
    } catch (error) {
        console.log(error);
    }
@@ -63,11 +38,6 @@ router.post('/',async(req, res)=>{
 });
 
 router.put('/:id',async(req, res)=>{
-    // const check_user = await User.findOne({
-    //     where:{
-    //         password:req.params.id
-    //     }
-    // });
     
     let msg;
     

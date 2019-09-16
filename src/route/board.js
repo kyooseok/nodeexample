@@ -30,12 +30,12 @@ const Board = models.boards;
 //     }
 // });
 
-Board.sync({force : true})
-    .then(()=>{
-    return Board.create({
-        content: "김유석"
-    });
-});
+// Board.sync({force : true})
+//     .then(()=>{
+//     return Board.create({
+//         content: "김유석"
+//     });
+// });
 
 
 board.get('/', async(req,res)=>{

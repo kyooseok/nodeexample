@@ -23,6 +23,13 @@ fs.readdirSync(__dirname).filter(file=>{ //readiireSync => 디렉토리 읽어�
     console.log(db);
 });
 
+Object.keys(db).forEach(modelName=>{
+    if(db[modelName].associate){
+        db[modelName].associate(db);
+    };
+});
+
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
