@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const models = require("../modules")
+const models = require("../modules");
 
 const User = models.user;
 
@@ -28,8 +28,7 @@ const User = models.user;
 
 User.sync({force : true}).then(()=>{
     return User.create({
-        name : "홍길동",
-        password : '1234'
+        name : "홍길동"
     });
 });
 
