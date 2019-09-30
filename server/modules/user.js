@@ -12,7 +12,7 @@ module.exports = (sequelize, DataType)=>{
     });
 
     User.associate= function(models){
-        models.user.hasOne(models.boards);
+        models.user.belongsTo(models.boards);
     }
     return User;
 }

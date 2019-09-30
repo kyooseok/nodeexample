@@ -7,7 +7,7 @@ module.exports = (sequelize, DataType)=>{
     });
 
     Board.associate = function(models){
-        models.boards.belongsTo(models.user);
+        models.boards.hasOne(models.user);
     }
     return Board;
 }

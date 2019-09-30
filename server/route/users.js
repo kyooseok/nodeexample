@@ -3,11 +3,15 @@ const router = express.Router();
 const models = require("../modules");
 
 const User = models.user;
+const Board = models.boards;
 
 
 
 router.get('/', async(req, res) =>{
-    let result = await User.findAll();
+    let result = await User.findAll({
+        attributes:["name"],
+        include:[Board]
+    });
     res.send(result);
 });
 
@@ -25,11 +29,11 @@ router.get('/:id',async(req, res)=>{
 router.post('/',async(req, res)=>{
    let result = true;
    try {
-       await User.create({
+      let result_user = await User.create({
           name: req.body.name,
           address:req.body.address
        });
-      await User.setBoards({name : "test"});
+      await result_user.createBoard({content:"test"});
    } catch (error) {
        console.log(error);
    }

@@ -4,38 +4,7 @@ const models = require("../modules");
 
 
 const Board = models.boards;
-// const check_sequelize_auth = async () =>{
-//     try {
-//         await sequelize.authenticate();
-//         console.log("연결성공");
-//     } catch (error) {
-//         console.log("연결실패", err);
-//     }
-// };
 
-// check_sequelize_auth();
-
-// const Board = sequelize.define("board",{
-//     title:{
-//         type : Sequelize.STRING,
-//         allowNull: false
-//     },
-//     content:{
-//         type : Sequelize.STRING,
-//         allowNull: false
-//     },
-//     viewcount:{
-//         type : Sequelize.STRING,
-//         allowNull: false
-//     }
-// });
-
-// Board.sync({force : true})
-//     .then(()=>{
-//     return Board.create({
-//         content: "김유석"
-//     });
-// });
 
 
 board.get('/', async(req,res)=>{

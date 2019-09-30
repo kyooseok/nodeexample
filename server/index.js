@@ -11,7 +11,7 @@ app.use('/board', board_router);
 
 models.sequelize.query("SET FOREIGN_KEY_CHECKS = 0", {raw: true}).then(()=>{
     models.sequelize.sync({force:true}).then(()=>{
-        app.listen(3000);
+        app.listen(5000);
     })
 })
 
