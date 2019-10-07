@@ -7,7 +7,8 @@ class UserList extends React.Component{
         console.log("constructor: ", this);
         this.state={
             isLoaded : false,
-            userData : []
+            userData : [],
+            progressing: false,
         }
     };
 
@@ -17,7 +18,7 @@ class UserList extends React.Component{
         this.setState({
             isLoaded:true,
             userData : result.data
-        })
+        });
     }
 
     componentDidMount(){
@@ -27,16 +28,41 @@ class UserList extends React.Component{
         }, 2000);
     }
 
+   async clickDeleteBtn(id,name){
+        await this.setState({
+            progressing : true
+        })
+        await alert(`id: ${id}, name: ${name}을 삭제합니다.`);
+        if(this.state.progressing){
+         setTimeout(async()=>{
+            await axios.delete(`http://localhost:5000/users/${id}`);
+            await this.getUserAll();
+            this.setState({
+                progressing : false
+            }) 
+        }, 1000);
+        }
+    }
+
 
     render(){
-        const {isLoaded, userData} = this.state;
+        const {isLoaded, userData,progressing} = this.state;
         return( isLoaded ?
+            <div>
+                {
+                progressing &&
+                  <div className="loadmask">
+                    <img src='/img/loading.gif'></img>
+                 </div>
+                 }
             <ul>
                 {userData.map((data, i)=>{
-                    console.log(data);
-                    return <li key={i}>이름 : {data.name}, 그룹명 : {data.board.content}</li>
-                })}                   
+                    return <li key={i}>이름 : {data.name}, 그룹명 : {data.board.content}
+                    <span onClick={this.clickDeleteBtn.bind(this, data.id, data.name)}>x</span>
+                </li>
+                })}                  
             </ul>
+            </div>
             :
             <div>로딩중</div>
         );

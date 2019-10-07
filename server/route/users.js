@@ -9,7 +9,6 @@ const Board = models.boards;
 
 router.get('/', async(req, res) =>{
     let result = await User.findAll({
-        attributes:["name"],
         include:[Board]
     });
     res.send(result);
@@ -17,7 +16,6 @@ router.get('/', async(req, res) =>{
 
 router.get('/:id',async(req, res)=>{
     let result = await User.findOne({
-        attributes:["name"],
         where : {
             id:req.params.id
         }
