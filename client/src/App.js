@@ -11,16 +11,18 @@ class App extends React.Component {
     }
   }
 
-  plusClickBtn=()=>{
-      this.setState({
+   plusClickBtn=async()=>{
+    await this.setState({
         count: this.state.count+1
-      }, console.log(this.state.count));
+      });
+    await console.log(this.state.count);
   }
 
-  minusClickBtn=()=>{
-    this.setState({
+  minusClickBtn=async()=>{
+    await this.setState({
       count: this.state.count-1
-    }, console.log(this.state.count));
+    });
+    await console.log(this.state.count)
   }
 
   render(){
@@ -28,8 +30,9 @@ class App extends React.Component {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <button onClick={this.plusClickBtn}>+</button>
-        <button onClick={this.minusClickBtn}>-</button>
+        <button onClick={this.plusClickBtn} style={{width:100, height:50, marginBottom:20}}>+</button>
+        <button onClick={this.minusClickBtn} style={{width:100, height:50}}>-</button>
+        <div>{this.state.count}</div>
         {/* <UserList/> */}
       </header>
     </div>
